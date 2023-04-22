@@ -1,12 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
+import { PageWrapper } from './Home.styled';
 
 export default function Home() {
   const location = useLocation();
   return (
-    <>
-      <Link to="/tweets" state={{ from: location }}>
-        Home
-      </Link>
-    </>
+    <main>
+      <PageWrapper>
+        <Link to="/users" state={{ from: location }}>
+          Home
+        </Link>
+      </PageWrapper>
+    </main>
   );
 }
