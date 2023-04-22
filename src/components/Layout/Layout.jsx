@@ -1,19 +1,32 @@
 import { Suspense } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+
+import { LoadingPage, Footer } from 'components';
+import {
+  Header,
+  NavBox,
+  NavLinkStyled,
+  PageWrap,
+  ContentWrap,
+} from './Layout.styled';
 
 export function Layout() {
   return (
-    <div>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/tweets">Tweets</Link>
-        </nav>
-      </header>
-      <Suspense fallback={<div>Loading page...</div>}>
-        <Outlet />
-      </Suspense>
-      <footer>Footer</footer>
-    </div>
+    <PageWrap>
+      <Header>
+        <NavBox>
+          <NavLinkStyled to="/" end>
+            Home
+          </NavLinkStyled>
+          <NavLinkStyled to="/users">Users</NavLinkStyled>
+        </NavBox>
+      </Header>
+      <ContentWrap>
+        <Suspense fallback={<LoadingPage />}>
+          <Outlet />
+        </Suspense>
+      </ContentWrap>
+      <Footer />
+    </PageWrap>
   );
 }
