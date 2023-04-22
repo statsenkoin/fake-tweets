@@ -4,6 +4,8 @@ add very basic file structure
 
 ## 02-routing
 
+Adds routes. Check gh-pages to work properly.
+
 ### resources
 
 ```
