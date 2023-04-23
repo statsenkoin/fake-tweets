@@ -53,7 +53,7 @@ export const AvatarBg = styled.div`
 export const Meta = styled.p`
   margin-bottom: 16px;
   /* font-family: 'Montserrat'; */
-  font-style: normal;
+  /* font-style: normal; */
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -69,7 +69,7 @@ export const FollowBtn = styled.button`
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 
-  /* font-family: 'Montserrat'; */
+  font-family: 'Montserrat';
   /* font-style: normal; */
   font-weight: 600;
   font-size: 18px;

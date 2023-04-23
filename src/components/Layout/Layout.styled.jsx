@@ -32,6 +32,7 @@ export const NavLinkStyled = styled(NavLink)`
   border: 1px solid #2c3b8d;
   border-radius: 5px;
   text-decoration: none;
+  font-weight: 500;
   font-size: 18px;
   color: #d1d1d1;
   transition: box-shadow 250ms linear, transform 250ms linear;
