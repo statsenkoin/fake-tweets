@@ -45,3 +45,11 @@ let num = 7323452568.283;
 var usFormat = num.toLocaleString('en-US');
 console.log(usFormat); // 7,323,452,568.283
 ```
+
+## 04-add-font
+
+Apply font Montserrat as a default for text content.
+
+```
+npm install @fontsource/montserrat
+```
