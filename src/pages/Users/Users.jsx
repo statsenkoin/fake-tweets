@@ -49,7 +49,7 @@ export default function Users() {
     <main>
       <PageWrapper>
         <PageHead>
-          <BackLink to={backLinkHref}>Back to Home</BackLink>
+          <BackLink to={backLinkHref}>Back Home</BackLink>
           <span>filter</span>
         </PageHead>
         <UsersList>
