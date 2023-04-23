@@ -34,3 +34,14 @@ npm install react-icons --save
 [https://react-icons.github.io](https://react-icons.github.io/react-icons)
 
 [keep-your-footer-where-it-belongs](https://www.freecodecamp.org/news/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/)
+
+## 04-user-card
+
+Add User card, style it, map in a list, format numbers...
+
+```
+let num = 7323452568.283;
+// US system en-US
+var usFormat = num.toLocaleString('en-US');
+console.log(usFormat); // 7,323,452,568.283
+```
