@@ -20,3 +20,10 @@ export const PageHead = styled.div`
   margin-bottom: 24px;
   border-bottom: 1px solid #888;
 `;
+
+export const UsersList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+`;
