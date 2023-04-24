@@ -59,3 +59,5 @@ npm install @fontsource/montserrat
 ```
 npm i axios
 ```
+
+## 07-add-locale-storage

@@ -3,6 +3,7 @@ import { PageWrapper, PageHead, UsersList } from './Users.styled';
 import { BackLink, UserCard } from 'components';
 import { useEffect, useState } from 'react';
 import { fetchUsers, updateUser } from 'services/usersApi';
+import { localStorageService as storage } from 'services/localStorageService ';
 
 import { Button } from 'components/Button/Button.styled';
 
@@ -13,8 +14,15 @@ export default function Users() {
   // ==================================================
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState([]);
-  const [followingUsers, setFollowingUsers] = useState([]);
+  const [followingUsers, setFollowingUsers] = useState(
+    storage.load('followingUsers') ?? []
+  );
   const [isBtnLoadMore, setIsBtnLoadMore] = useState(true);
+
+  useEffect(
+    () => storage.save('followingUsers', followingUsers),
+    [followingUsers]
+  );
 
   useEffect(() => {
     async function getUsers() {
