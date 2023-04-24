@@ -53,32 +53,10 @@ export const AvatarBg = styled.div`
 export const Meta = styled.p`
   margin-bottom: 16px;
   /* font-family: 'Montserrat'; */
-  /* font-style: normal; */
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
   text-transform: uppercase;
 
   color: #ebd8ff;
-`;
-export const FollowBtn = styled.button`
-  width: 196px;
-  height: 50px;
-  margin-top: 10px;
-  background: #ebd8ff;
-  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-
-  font-family: 'Montserrat';
-  /* font-style: normal; */
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 22px;
-  text-transform: uppercase;
-  color: #373737;
-
-  &:hover,
-  &.active {
-    background: #5cd3a8;
-  }
 `;

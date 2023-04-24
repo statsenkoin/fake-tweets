@@ -1,50 +1,50 @@
 import { useLocation } from 'react-router-dom';
 import { PageWrapper, PageHead, UsersList } from './Users.styled';
 import { BackLink, UserCard } from 'components';
+import { useEffect, useState } from 'react';
+import { fetchUsers } from 'services/usersApi';
 
-// import hansel from '../../assets/images/Hansel.png';
-const users = [
-  {
-    user: 'Elon Mask',
-    tweets: 7777,
-    followers: 100500,
-    // avatar: '',
-    avatar: require('../../assets/images/Hansel.png'),
-    id: '1',
-  },
-  {
-    user: 'Keanu Reeves',
-    tweets: 555,
-    followers: 800300,
-    avatar: require('../../assets/images/Hansel.png'),
-    id: '2',
-  },
-  {
-    user: 'Joe Biden',
-    tweets: 333,
-    followers: 1000001,
-    avatar: require('../../assets/images/Hansel.png'),
-    id: '3',
-  },
-  {
-    user: 'Bill Gates',
-    tweets: 1000,
-    followers: 7777,
-    avatar: require('../../assets/images/Hansel.png'),
-    id: '4',
-  },
-  {
-    user: 'Mark Zuckerberg',
-    tweets: 999,
-    followers: 3003,
-    avatar: '',
-    id: '5',
-  },
-];
+import { Button } from 'components/Button/Button.styled';
 
 export default function Users() {
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
+
+  // ==================================================
+  const [page, setPage] = useState(1);
+  const [users, setUsers] = useState([]);
+  const [followingUsers, setFollowingUsers] = useState([]);
+  const [isBtnLoadMore, setIsBtnLoadMore] = useState(true);
+
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        const userList = await fetchUsers(page);
+        userList.length > 0
+          ? setUsers(prev => [...prev, ...userList])
+          : setIsBtnLoadMore(false);
+      } catch (error) {
+        console.log('error :>> ', error);
+      }
+    }
+    getUsers();
+  }, [page]);
+
+  const handleFollowingButton = user => {
+    const index = users.findIndex(({ id }) => user.id === id);
+    const isFollowingUser = followingUsers.some(({ id }) => user.id === id);
+    if (isFollowingUser) {
+      users[index].followers -= 1;
+      setFollowingUsers(followingUsers.filter(({ id }) => id !== user.id));
+    } else {
+      users[index].followers += 1;
+      setFollowingUsers(prev => [...prev, user]);
+    }
+  };
+
+  const handleLoadMore = () => setPage(prev => prev + 1);
+
+  // ==================================================
   return (
     <main>
       <PageWrapper>
@@ -55,10 +55,19 @@ export default function Users() {
         <UsersList>
           {users.map(user => (
             <li key={user.id}>
-              <UserCard user={user}></UserCard>
+              <UserCard
+                user={user}
+                followingUsers={followingUsers}
+                handleFollowingButton={handleFollowingButton}
+              ></UserCard>
             </li>
           ))}
         </UsersList>
+        {isBtnLoadMore && (
+          <Button type="button" onClick={handleLoadMore}>
+            Load more
+          </Button>
+        )}
       </PageWrapper>
     </main>
   );
