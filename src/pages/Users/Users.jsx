@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { PageWrapper, PageHead, UsersList } from './Users.styled';
 import { BackLink, UserCard } from 'components';
 import { useEffect, useState } from 'react';
-import { fetchUsers } from 'services/usersApi';
+import { fetchUsers, updateUser } from 'services/usersApi';
 
 import { Button } from 'components/Button/Button.styled';
 
@@ -40,7 +40,16 @@ export default function Users() {
       users[index].followers += 1;
       setFollowingUsers(prev => [...prev, user]);
     }
+    updateFollowers(user);
   };
+
+  async function updateFollowers(user) {
+    try {
+      await updateUser(user);
+    } catch (error) {
+      console.log('error :>> ', error);
+    }
+  }
 
   const handleLoadMore = () => setPage(prev => prev + 1);
 
