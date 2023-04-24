@@ -46,10 +46,16 @@ var usFormat = num.toLocaleString('en-US');
 console.log(usFormat); // 7,323,452,568.283
 ```
 
-## 04-add-font
+## 05-add-font
 
 Apply font Montserrat as a default for text content.
 
 ```
 npm install @fontsource/montserrat
+```
+
+## 06-add-usersApi
+
+```
+npm i axios
 ```
