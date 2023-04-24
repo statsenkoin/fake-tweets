@@ -9,6 +9,7 @@ export const PageWrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   padding-inline: 24px;
+  padding-bottom: 24px;
 `;
 
 export const PageHead = styled.div`
