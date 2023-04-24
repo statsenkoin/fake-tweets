@@ -18,6 +18,7 @@ export default function Users() {
     storage.load('followingUsers') ?? []
   );
   const [isBtnLoadMore, setIsBtnLoadMore] = useState(true);
+  const [filter, setFilter] = useState('all');
 
   useEffect(
     () => storage.save('followingUsers', followingUsers),
@@ -37,6 +38,8 @@ export default function Users() {
     }
     getUsers();
   }, [page]);
+
+  // useEffect(() => setIsBtnLoadMore(filter === 'all'), [filter]);
 
   const handleFollowingButton = user => {
     const index = users.findIndex(({ id }) => user.id === id);
@@ -61,16 +64,37 @@ export default function Users() {
 
   const handleLoadMore = () => setPage(prev => prev + 1);
 
+  const filterOption = e => setFilter(e.target.value);
+
+  const filteredUserList = () => {
+    const ids = followingUsers.map(({ id }) => id);
+    switch (filter) {
+      case 'follow':
+        return users.filter(({ id }) => !ids.includes(id));
+      case 'followings':
+        return users.filter(({ id }) => ids.includes(id));
+      default:
+        return users;
+    }
+  };
+
   // ==================================================
   return (
     <main>
       <PageWrapper>
         <PageHead>
           <BackLink to={backLinkHref}>Back Home</BackLink>
-          <span>filter</span>
+          <label>
+            Filter by:
+            <select name="followers" onChange={filterOption} defaultValue="all">
+              <option value="all">All</option>
+              <option value="follow">Follow</option>
+              <option value="followings">Followings</option>
+            </select>
+          </label>
         </PageHead>
         <UsersList>
-          {users.map(user => (
+          {filteredUserList().map(user => (
             <li key={user.id}>
               <UserCard
                 user={user}
