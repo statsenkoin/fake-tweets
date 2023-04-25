@@ -16,7 +16,7 @@
 ## Usage
 
 This project was build with Create React App and uses HTML, CSS, JavaScript,
-React, AJAX, HTTP Requests, Git/Github, npm and packages.
+React, HTTP Requests, Git/Github, npm and packages.
 
 ### How to run project locally
 
