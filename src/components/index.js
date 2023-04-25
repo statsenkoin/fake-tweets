@@ -7,3 +7,4 @@ export { BackLink } from './BackLink/BackLink';
 export { Filter } from './Filter/Filter';
 export { UsersList } from './UsersList/UsersList';
 export { UserCard } from './UserCard/UserCard';
+export { ScrollButton } from './ScrollButton/ScrollButton';

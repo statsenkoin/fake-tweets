@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { LoadingPage, Footer, Header } from 'components';
+import { LoadingPage, Footer, Header, ScrollButton } from 'components';
 import { PageWrap, ContentWrap } from './Layout.styled';
 
 export function Layout() {
@@ -13,6 +13,7 @@ export function Layout() {
         </Suspense>
       </ContentWrap>
       <Footer />
+      <ScrollButton />
     </PageWrap>
   );
 }
