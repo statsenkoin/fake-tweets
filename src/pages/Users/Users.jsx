@@ -1,17 +1,12 @@
-import { useLocation } from 'react-router-dom';
-import { PageWrapper, PageHead, UsersList } from './Users.styled';
-import { BackLink, UserCard } from 'components';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { fetchUsers, updateUser } from 'services/usersApi';
 import { localStorageService as storage } from 'services/localStorageService ';
-
+import { BackLink, Filter, UsersList } from 'components';
 import { Button } from 'components/Button/Button.styled';
+import { PageWrapper, PageTab } from './Users.styled';
 
 export default function Users() {
-  const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
-
-  // ==================================================
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState([]);
   const [followingUsers, setFollowingUsers] = useState(
@@ -19,6 +14,9 @@ export default function Users() {
   );
   const [isBtnLoadMore, setIsBtnLoadMore] = useState(true);
   const [filter, setFilter] = useState('all');
+
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(
     () => storage.save('followingUsers', followingUsers),
@@ -38,8 +36,6 @@ export default function Users() {
     }
     getUsers();
   }, [page]);
-
-  // useEffect(() => setIsBtnLoadMore(filter === 'all'), [filter]);
 
   const handleFollowingButton = user => {
     const index = users.findIndex(({ id }) => user.id === id);
@@ -64,7 +60,7 @@ export default function Users() {
 
   const handleLoadMore = () => setPage(prev => prev + 1);
 
-  const filterOption = e => setFilter(e.target.value);
+  const filterOption = value => setFilter(value);
 
   const filteredUserList = () => {
     const ids = followingUsers.map(({ id }) => id);
@@ -78,38 +74,22 @@ export default function Users() {
     }
   };
 
-  // ==================================================
   return (
-    <main>
-      <PageWrapper>
-        <PageHead>
-          <BackLink to={backLinkHref}>Back Home</BackLink>
-          <label>
-            Filter by:
-            <select name="followers" onChange={filterOption} defaultValue="all">
-              <option value="all">All</option>
-              <option value="follow">Follow</option>
-              <option value="followings">Followings</option>
-            </select>
-          </label>
-        </PageHead>
-        <UsersList>
-          {filteredUserList().map(user => (
-            <li key={user.id}>
-              <UserCard
-                user={user}
-                followingUsers={followingUsers}
-                handleFollowingButton={handleFollowingButton}
-              ></UserCard>
-            </li>
-          ))}
-        </UsersList>
-        {isBtnLoadMore && (
-          <Button type="button" onClick={handleLoadMore}>
-            Load more
-          </Button>
-        )}
-      </PageWrapper>
-    </main>
+    <PageWrapper>
+      <PageTab>
+        <BackLink to={backLinkHref}>Back Home</BackLink>
+        <Filter filterOption={filterOption} />
+      </PageTab>
+      <UsersList
+        filteredUserList={filteredUserList}
+        followingUsers={followingUsers}
+        handleFollowingButton={handleFollowingButton}
+      />
+      {isBtnLoadMore && (
+        <Button type="button" onClick={handleLoadMore}>
+          Load more
+        </Button>
+      )}
+    </PageWrapper>
   );
 }

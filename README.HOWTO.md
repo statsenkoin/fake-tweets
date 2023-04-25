@@ -61,3 +61,7 @@ npm i axios
 ```
 
 ## 07-add-locale-storage
+
+## 08-add-filter
+
+## 09-refactoring

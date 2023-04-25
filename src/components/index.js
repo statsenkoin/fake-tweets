@@ -1,6 +1,9 @@
-export { App } from './App/App';
-export { Layout } from './Layout/Layout';
+export { App } from '../App/App';
+export { Layout } from '../Layout/Layout';
+export { Header } from '../Layout/Header/Header';
+export { Footer } from '../Layout/Footer/Footer';
 export { LoadingPage } from './LoadingPage/LoadingPage';
-export { Footer } from './Footer/Footer';
 export { BackLink } from './BackLink/BackLink';
+export { Filter } from './Filter/Filter';
+export { UsersList } from './UsersList/UsersList';
 export { UserCard } from './UserCard/UserCard';

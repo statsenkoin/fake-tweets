@@ -7,9 +7,10 @@ export const Button = styled.button`
   background: #ebd8ff66;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  border-width: 1px;
+  border-color: #ebd8ff66;
 
   font-family: 'Montserrat';
-  /* font-style: normal; */
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
@@ -22,7 +23,6 @@ export const Button = styled.button`
 `;
 
 export const FollowBtn = styled(Button)`
-  /* background: ${props => (props.$active ? '#5cd3a8' : '#ebd8ff')}; */
   ${props => {
     switch (props.$mode) {
       case 'active':
