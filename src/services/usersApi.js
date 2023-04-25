@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://6421e46c86992901b2be8a71.mockapi.io/users';
-// axios.defaults.params = { limit: 3 };
-const perPage = 3;
+const PER_RAGE = 4;
 
 export async function fetchUsers(page) {
-  const response = await axios.get(`?page=${page}&limit=${perPage}`);
+  const response = await axios.get(`?page=${page}&limit=${PER_RAGE}`);
   return response.data;
 }
 
