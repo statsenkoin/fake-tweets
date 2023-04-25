@@ -4,10 +4,9 @@ export const Button = styled.div`
   position: fixed;
   width: 100%;
   left: 85%;
-  bottom: 100px;
-  height: 20px;
-  font-size: 3rem;
-  z-index: 1;
+  bottom: 80px;
+  font-size: 48px;
+  z-index: 100;
   cursor: pointer;
   color: var(--color-bg-light-btn-active);
 `;
