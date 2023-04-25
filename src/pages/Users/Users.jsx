@@ -37,6 +37,12 @@ export default function Users() {
     getUsers();
   }, [page]);
 
+  useEffect(() => {
+    if (page > 1) {
+      window.scrollBy(0, window.innerHeight / 2);
+    }
+  }, [users, page]);
+
   const handleFollowingButton = user => {
     const index = users.findIndex(({ id }) => user.id === id);
     const isFollowingUser = followingUsers.some(({ id }) => user.id === id);
