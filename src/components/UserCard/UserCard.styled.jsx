@@ -5,7 +5,7 @@ export const Card = styled.div`
   width: 380px;
   height: 460px;
   text-align: center;
-  background: linear-gradient(115deg, #471ca9 -1%, #5736a3 54%, #4b2a99 79%);
+  background: var(--linear-gradient);
   box-shadow: -3px 7px 21px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
 `;
@@ -24,7 +24,7 @@ export const Divider = styled.div`
   width: 380px;
   height: 8px;
   margin-bottom: 62px;
-  background: #ebd8ff;
+  background: var(--color-bg-light-btn);
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06), inset 0px -2px 3px #ae7be3,
     inset 0px 3px 3px #fbf8ff;
 `;
@@ -37,7 +37,7 @@ export const AvatarFrame = styled.div`
   left: 150px;
   width: 80px;
   height: 80px;
-  background: #ebd8ff;
+  background: var(--color-bg-light-btn);
   border-radius: 50%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.06), inset 0px -2px 4px #ae7be3,
     inset 0px 4px 3px #fbf8ff;
@@ -47,7 +47,7 @@ export const AvatarBg = styled.div`
   width: 62px;
   height: 62px;
   border-radius: 50%;
-  background-color: #5736a3;
+  background-color: var(--color-bg-dark-main);
 `;
 
 export const Avatar = styled.img`
@@ -58,9 +58,6 @@ export const Avatar = styled.img`
 
 export const Meta = styled.p`
   margin-bottom: 16px;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
   text-transform: uppercase;
-  color: #ebd8ff;
+  color: var(--color-text-light);
 `;

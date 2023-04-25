@@ -19,5 +19,5 @@ export const PageTab = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 12px 24px;
-  border-bottom: 1px solid #888;
+  border-bottom: 1px solid var(--color-bg-dark-main);
 `;
