@@ -50,13 +50,17 @@ export const AvatarBg = styled.div`
   background-color: #5736a3;
 `;
 
+export const Avatar = styled.img`
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+`;
+
 export const Meta = styled.p`
   margin-bottom: 16px;
-  /* font-family: 'Montserrat'; */
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
   text-transform: uppercase;
-
   color: #ebd8ff;
 `;

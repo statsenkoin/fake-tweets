@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { FollowBtn } from 'components/Button/Button.styled';
 import {
   Card,
   BgImage,
@@ -5,14 +7,12 @@ import {
   Divider,
   AvatarFrame,
   AvatarBg,
+  Avatar,
   Meta,
-  // FollowBtn,
 } from './UserCard.styled';
-import { FollowBtn } from 'components/Button/Button.styled';
 
 import bgImage from '../../assets/images/bgPicture.png';
 import logo from '../../assets/images/logoGoIT.png';
-import { useState } from 'react';
 
 export function UserCard({ user, followingUsers, handleFollowingButton }) {
   const isFollowingUser = followingUsers.some(({ id }) => user.id === id);
@@ -32,7 +32,7 @@ export function UserCard({ user, followingUsers, handleFollowingButton }) {
       <Divider />
       <AvatarFrame>
         <AvatarBg>
-          <img width="62px" height="62px" src={avatar} alt={userName} />
+          <Avatar src={avatar} alt={userName} />
         </AvatarBg>
       </AvatarFrame>
       <Meta>{tweets.toLocaleString('en-US')} tweets</Meta>
