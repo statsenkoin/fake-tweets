@@ -7,11 +7,7 @@ export function ScrollButton() {
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300) {
-      setVisible(true);
-    } else if (scrolled <= 300) {
-      setVisible(false);
-    }
+    setVisible(scrolled > 300 ? true : false);
   };
 
   const scrollToTop = () => window.scrollTo(0, 0);
