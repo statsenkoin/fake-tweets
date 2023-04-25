@@ -31,7 +31,7 @@ export const Select = styled.select`
   font-size: 18px;
   font-weight: 600;
   color: var(--color-text-dark);
-
+  background-color: var(--color-bg-light-main);
   border-radius: 6px;
   border-color: transparent;
   box-shadow: var(--box-shadow);
