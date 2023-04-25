@@ -3,13 +3,13 @@ import { BsFilter } from 'react-icons/bs';
 
 export const Wrapper = styled.div`
   position: relative;
-  border-radius: 5px;
+  border-radius: 6px;
 
   &:hover,
   &:hover > :first-child {
     transform: scale(1.05);
-    color: #ffff00;
-    background-color: #3f51b5;
+    color: var(--color-text-active);
+    background-color: var(--color-bg-dark-main);
   }
 `;
 export const Icon = styled(BsFilter)`
@@ -24,19 +24,17 @@ export const Select = styled.select`
   -moz-appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
-  font-family: inherit;
   outline: none;
+  padding: 6px 30px 6px 15px;
 
-  padding: 5px 30px 5px 15px;
+  font-family: inherit;
   font-size: 18px;
   font-weight: 600;
-  color: #5736a3;
+  color: var(--color-text-dark);
 
-  border-radius: 5px;
+  border-radius: 6px;
   border-color: transparent;
-  background-color: #fcfcfc;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.1),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.07), 0px 1px 10px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--box-shadow);
 
-  transition: background-color 300ms linear, transform 300ms ease-in-out;
+  transition: var(--transition);
 `;
