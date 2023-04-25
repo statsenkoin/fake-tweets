@@ -9,6 +9,8 @@ export const StyledLink = styled(Link)`
   margin: 10px;
   font-size: 18px;
   font-weight: 600;
+  text-decoration: none;
+  color: var(--color-text-dark);
   border-radius: 6px;
   box-shadow: var(--box-shadow);
 
