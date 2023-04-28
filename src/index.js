@@ -8,9 +8,9 @@ import '@fontsource/montserrat/500.css';
 import '@fontsource/montserrat/600.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter basename="/fake-tweets">
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter basename="/fake-tweets">
+    <App />
+  </BrowserRouter>
+  // </React.StrictMode>
 );

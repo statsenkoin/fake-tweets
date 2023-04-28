@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import bgImage from '../../assets/images/bgPicture.png';
+import logo from '../../assets/images/logoGoIT.png';
+
 export const Card = styled.div`
   position: relative;
   width: 380px;
@@ -10,30 +13,46 @@ export const Card = styled.div`
   border-radius: 20px;
 `;
 
-export const BgImage = styled.img`
-  margin: 28px 36px 14px;
+export const BgImage = styled.div`
+  width: 380px;
+  height: 210px;
+  background-image: url(${bgImage});
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
-export const Logo = styled.img`
+export const Logo = styled.div`
   position: absolute;
+  width: 76px;
+  height: 22px;
   top: 20px;
   left: 20px;
+  background-image: url(${logo});
 `;
 
-export const Divider = styled.div`
-  width: 380px;
-  height: 8px;
-  margin-bottom: 62px;
-  background: var(--color-bg-light-btn);
-  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06), inset 0px -2px 3px #ae7be3,
-    inset 0px 3px 3px #fbf8ff;
+export const UserData = styled.div`
+  padding-top: 62px;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    top: -4px;
+    background: var(--color-bg-light-btn);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06), inset 0px -2px 3px #ae7be3,
+      inset 0px 3px 3px #fbf8ff;
+  }
 `;
+
 export const AvatarFrame = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 178px;
+  top: -40px;
   left: 150px;
   width: 80px;
   height: 80px;

@@ -5,11 +5,10 @@ export const PageWrapper = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 800px;
+  max-width: 784px;
   gap: 24px;
   margin-left: auto;
   margin-right: auto;
-  padding-inline: 24px;
   padding-bottom: 24px;
 `;
 
