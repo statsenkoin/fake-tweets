@@ -71,3 +71,10 @@ npm i axios
 ## 11-add-auto-scroll-up
 
 ## xx-add-scroll-ttobutton
+
+## 12-fix-mistakes
+
+1. User Card -> adds cursor pointer.
+2. User card -> changes the style of background images to be background. Avatars
+   left as content images.
+3. User Card -> changes the style of the divider to a ':before' pseudo-element.
