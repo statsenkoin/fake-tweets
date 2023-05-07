@@ -1,6 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { fetchUsers, updateUser } from 'services/usersApi';
+import {
+  fetchUsers,
+  updateUser,
+  PER_RAGE,
+  fetchAllUsers,
+} from 'services/usersApi';
 import { localStorageService as storage } from 'services/localStorageService ';
 import { BackLink, Filter, UsersList } from 'components';
 import { Button } from 'components/Button/Button.styled';
@@ -12,73 +17,175 @@ export default function Users() {
   const [followingUsers, setFollowingUsers] = useState(
     storage.load('followingUsers') ?? []
   );
-  const [isBtnLoadMore, setIsBtnLoadMore] = useState(true);
+  const [isLoadMoreBtnVisible, setIsLoadMoreBtnVisible] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [maxPages, setMaxPages] = useState(1);
+  const [maxDbPages, setMaxDbPages] = useState(1);
+
+  let cashedUsers = useRef([]);
 
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
 
+  /** Get localStorage */
   useEffect(
     () => storage.save('followingUsers', followingUsers),
     [followingUsers]
   );
 
+  /** Init page */
   useEffect(() => {
-    async function getUsers() {
+    async function initPage() {
       try {
-        const userList = await fetchUsers(page);
-        userList.length > 0
-          ? setUsers(prev => [...prev, ...userList])
-          : setIsBtnLoadMore(false);
+        const length = await fetchAllUsers();
+        setMaxDbPages(calculateMaxPages(length));
+        setMaxPages(calculateMaxPages(length));
+        setIsLoadMoreBtnVisible(length ? true : false);
       } catch (error) {
         console.log('error :>> ', error);
       }
     }
-    getUsers();
-  }, [page]);
+    initPage();
+  }, []);
 
+  /** Handle page, filter change */
   useEffect(() => {
+    const getUsers = async () => {
+      if (filter !== 'followings') {
+        try {
+          const newUsers = await fetchUsers(page);
+          filterUsers(newUsers);
+        } catch (error) {
+          console.log('error :>> ', error);
+        }
+      }
+    };
+    getUsers();
+    // eslint-disable-next-line
+  }, [page, filter]);
+
+  /** Set loadMore button visible*/
+  useEffect(() => {
+    setIsLoadMoreBtnVisible(page >= maxPages ? false : true);
     if (page > 1) {
       window.scrollBy(0, window.innerHeight / 2);
     }
-  }, [users, page]);
+  }, [maxPages, page]);
 
+  /** Update maxPages */
+  useEffect(() => {
+    setMaxPages(
+      filter === 'followings'
+        ? calculateMaxPages(followingUsers.length)
+        : maxDbPages
+    );
+  }, [filter, followingUsers.length, maxDbPages]);
+
+  /** Set filter */
+  const filterOption = value => {
+    cashedUsers.current = [];
+    setPage(1);
+    setUsers([]);
+    setFilter(value);
+  };
+
+  /** Filter fetched users */
+  const filterUsers = newUsers => {
+    if (filter === 'all') {
+      setUsers(prev => [...prev, ...newUsers]);
+    } else if (filter === 'follow') {
+      const ids = followingUsers.map(({ id }) => id);
+      const filteredUsers = newUsers.filter(({ id }) => !ids.includes(id));
+      cashedUsers.current = [...cashedUsers.current, ...filteredUsers];
+
+      /** If render list length < page*PER_PAGE -> add next page */
+      const delta = cashedUsers.current.length % PER_RAGE;
+      if (delta) {
+        const temp = [...cashedUsers.current];
+        temp.splice(-delta, delta);
+        newUsers = temp;
+      } else {
+        newUsers = cashedUsers.current;
+      }
+
+      if (page === maxPages) newUsers = cashedUsers.current;
+      if (
+        cashedUsers.current.length - users.length < PER_RAGE &&
+        page < maxPages
+      ) {
+        handleLoadMore();
+      }
+
+      setUsers(newUsers);
+    }
+  };
+
+  /** filter users to render */
+  const filteredUserList = () => {
+    switch (filter) {
+      case 'followings':
+        return [...followingUsers].splice(0, page * PER_RAGE);
+      case 'follow':
+        return cashedUsers.current;
+      default:
+        return users;
+    }
+  };
+
+  /** add/remove user to/from following/followUsers list */
   const handleFollowingButton = user => {
-    const index = users.findIndex(({ id }) => user.id === id);
     const isFollowingUser = followingUsers.some(({ id }) => user.id === id);
     if (isFollowingUser) {
-      users[index].followers -= 1;
+      user.followers -= 1;
       setFollowingUsers(followingUsers.filter(({ id }) => id !== user.id));
     } else {
-      users[index].followers += 1;
+      user.followers += 1;
       setFollowingUsers(prev => [...prev, user]);
     }
+    if (filter === 'follow') updateFollowUsers(user);
+
     updateFollowers(user);
   };
 
-  async function updateFollowers(user) {
+  /**
+   * Remove user from list on followingButton click
+   * and add next page if need
+   */
+  const updateFollowUsers = user => {
+    const index = users.findIndex(({ id }) => user.id === id);
+
+    const oldCashedUsers = [...cashedUsers.current];
+    cashedUsers.current.splice(index, 1);
+
+    let newUsers = [];
+    const delta = cashedUsers.current.length % PER_RAGE;
+    const temp = [...cashedUsers.current];
+    temp.splice(-delta, delta);
+    if (
+      (oldCashedUsers.length % PER_RAGE) -
+        (cashedUsers.current.length % PER_RAGE) <
+      0
+    ) {
+      filterUsers(newUsers);
+    } else {
+      newUsers = temp;
+      if (page === maxPages) newUsers = cashedUsers.current;
+      setUsers(newUsers);
+    }
+  };
+
+  /** Update user data on server */
+  const updateFollowers = async user => {
     try {
       await updateUser(user);
     } catch (error) {
       console.log('error :>> ', error);
     }
-  }
+  };
+
+  const calculateMaxPages = length => Math.ceil(length / PER_RAGE);
 
   const handleLoadMore = () => setPage(prev => prev + 1);
-
-  const filterOption = value => setFilter(value);
-
-  const filteredUserList = () => {
-    const ids = followingUsers.map(({ id }) => id);
-    switch (filter) {
-      case 'follow':
-        return users.filter(({ id }) => !ids.includes(id));
-      case 'followings':
-        return users.filter(({ id }) => ids.includes(id));
-      default:
-        return users;
-    }
-  };
 
   return (
     <PageWrapper>
@@ -91,7 +198,7 @@ export default function Users() {
         followingUsers={followingUsers}
         handleFollowingButton={handleFollowingButton}
       />
-      {isBtnLoadMore && (
+      {isLoadMoreBtnVisible && (
         <Button type="button" onClick={handleLoadMore}>
           Load more
         </Button>
