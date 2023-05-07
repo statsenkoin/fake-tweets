@@ -78,3 +78,7 @@ npm i axios
 2. User card -> changes the style of background images to be background. Avatars
    left as content images.
 3. User Card -> changes the style of the divider to a ':before' pseudo-element.
+
+## filter logic
+
+Add logic to render list of users that allways multiple of PER_PAGE
